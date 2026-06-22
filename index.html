@@ -156,7 +156,7 @@
                 <svg viewBox="0 0 24 24" width="14" height="14" class="info-inline"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 16v-4m0-4h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                 <span>משך זמן משוער: 5–10 דקות</span>
               </div>
-              <button class="next-step-btn" data-next="1">סיימתי, לשלב הבא</button>
+              <button class="next-step-btn" onclick="if(window.transitionToStep) { window.transitionToStep(1); } else { alert('שגיאה: קובץ main.js לא נטען עדיין בדפדפן'); } event.stopPropagation();">סיימתי, לשלב הבא</button>
             </div>
           </div>
         </div>
@@ -222,7 +222,7 @@
                 <svg viewBox="0 0 24 24" width="14" height="14" class="info-inline"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 16v-4m0-4h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                 <span>משך זמן משוער: 20–30 דקות</span>
               </div>
-              <button class="next-step-btn" data-next="2">סיימתי, לשלב הבא</button>
+              <button class="next-step-btn" onclick="if(window.transitionToStep) { window.transitionToStep(2); } else { alert('שגיאה: קובץ main.js לא נטען עדיין בדפדפן'); } event.stopPropagation();">סיימתי, לשלב הבא</button>
             </div>
           </div>
         </div>
@@ -288,7 +288,7 @@
                 <svg viewBox="0 0 24 24" width="14" height="14" class="info-inline"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 16v-4m0-4h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                 <span>משך זמן משוער: 15–20 דקות</span>
               </div>
-              <button class="next-step-btn" data-next="3">סיימתי, לשלב הבא</button>
+              <button class="next-step-btn" onclick="if(window.transitionToStep) { window.transitionToStep(3); } else { alert('שגיאה: קובץ main.js לא נטען עדיין בדפדפן'); } event.stopPropagation();">סיימתי, לשלב הבא</button>
             </div>
           </div>
         </div>
@@ -356,7 +356,7 @@
                   </div>
                 </div>
               </div>
-              <button class="finish-journey-btn">השלמתי את התהליך</button>
+              <button class="finish-journey-btn" onclick="if(window.finishJourney) { window.finishJourney(); } else { alert('שגיאה: קובץ main.js לא נטען עדיין בדפדפן'); } event.stopPropagation();">השלמתי את התהליך</button>
             </div>
           </div>
         </div>

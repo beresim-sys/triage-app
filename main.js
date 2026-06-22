@@ -147,7 +147,20 @@ const initApp = () => {
       "המלצות שחרור או אשפוז הופקו על ידי הרופא/ה."
     ];
     addChatMessage('system', stations[stepIndex]);
+
+    // Smooth scroll to the active card
+    setTimeout(() => {
+      const activeCard = document.getElementById(`station-${stepIndex}`);
+      if (activeCard) {
+        activeCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 300);
   }
+
+  // Make transition globally accessible
+  window.transitionToStep = (stepIndex) => {
+    transitionToStep(stepIndex);
+  };
 
   elements.simStepBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -502,36 +515,11 @@ const initApp = () => {
     }, 15000);
   }
 
-  // --- JOURNEY NAVIGATION BUTTONS (GLOBAL DELEGATION - TIMING PROOF) ---
-  document.addEventListener('click', (e) => {
-    const nextBtn = e.target.closest('.next-step-btn');
-    if (nextBtn) {
-      e.stopPropagation();
-      e.preventDefault();
-      const nextIndex = parseInt(nextBtn.getAttribute('data-next'), 10);
-      
-      // DIAGNOSTIC ALERT
-      alert(`קליק זוהה! מנסה לעבור לתחנה מספר: ${nextIndex + 1}`);
-      
-      transitionToStep(nextIndex);
-      
-      setTimeout(() => {
-        const nextCard = document.getElementById(`station-${nextIndex}`);
-        if (nextCard) {
-          nextCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      }, 300);
-      return;
-    }
-
-    const finishBtn = e.target.closest('.finish-journey-btn');
-    if (finishBtn) {
-      e.stopPropagation();
-      e.preventDefault();
-      showToast("כל הכבוד! השלמת את תהליך המיון בהצלחה.");
-      addChatMessage('system', "תהליך המיון הושלם בהצלחה. בריאות שלמה וידיים מלאות!");
-    }
-  });
+  // --- JOURNEY NAVIGATION BUTTONS (EXPORTS) ---
+  window.finishJourney = () => {
+    showToast("כל הכבוד! השלמת את תהליך המיון בהצלחה.");
+    addChatMessage('system', "תהליך המיון הושלם בהצלחה. בריאות שלמה וידיים מלאות!");
+  };
 
 };
 
