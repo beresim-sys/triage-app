@@ -1439,3 +1439,42 @@ button, input {
   text-align: right;
 }
 
+/* Next Step Buttons */
+.next-step-btn, .finish-journey-btn {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 14px;
+  display: none; /* hidden by default */
+  transition: var(--transition-smooth);
+  box-shadow: 0 4px 12px rgba(220, 100, 120, 0.12);
+  text-align: center;
+}
+
+.next-step-btn:hover, .finish-journey-btn:hover {
+  opacity: 0.95;
+  transform: translateY(-1px);
+}
+
+.next-step-btn:active, .finish-journey-btn:active {
+  transform: translateY(1px);
+}
+
+/* Only show step buttons inside the active timeline card */
+.timeline-item.active .next-step-btn,
+.timeline-item.active .finish-journey-btn {
+  display: block;
+}
+
+/* Style for final stage button using Sage green */
+.finish-journey-btn {
+  background-color: var(--color-secondary);
+  box-shadow: 0 4px 12px rgba(80, 180, 120, 0.12);
+}
+

@@ -339,7 +339,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- NEED HELP BOTTOM SHEET DRAWER ---
-  elements.helpBtnTrigger.addEventListener('click', openHelpDrawer);
+  if (elements.helpBtnTrigger) {
+    elements.helpBtnTrigger.addEventListener('click', openHelpDrawer);
+  }
   elements.drawerBackdrop.addEventListener('click', closeHelpDrawer);
   elements.closeDrawerBtn.addEventListener('click', closeHelpDrawer);
 
@@ -477,7 +479,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(() => {
       index = (index + 1) % supportiveTips.length;
       
-      tipTextNode.style.opacity = '0';
+       tipTextNode.style.opacity = '0';
       setTimeout(() => {
         tipTextNode.textContent = supportiveTips[index];
         tipTextNode.style.opacity = '1';
@@ -485,4 +487,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 15000);
   }
 
+  // --- JOURNEY NAVIGATION BUTTONS ---
+  document.addEventListener('click', (e) => {
+    if (e.target && e.target.classList.contains('next-step-btn')) {
+      const nextIndex = parseInt(e.target.getAttribute('data-next'), 10);
+      const stepBtn = document.querySelector(`.sim-step-btn[data-step="${nextIndex}"]`);
+      if (stepBtn) {
+        stepBtn.click();
+      } else {
+        state.currentStep = nextIndex;
+        if (!state.expandedSteps.includes(nextIndex)) {
+          state.expandedSteps.push(nextIndex);
+        }
+        updateTimelineUI();
+      }
+      setTimeout(() => {
+        const nextCard = document.getElementById(`station-${nextIndex}`);
+        if (nextCard) {
+          nextCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 300);
+    }
+    
+    if (e.target && e.target.classList.contains('finish-journey-btn')) {
+      showToast("כל הכבוד! השלמת את תהליך המיון בהצלחה.");
+      addChatMessage('system', "תהליך המיון הושלם בהצלחה. בריאות שלמה וידיים מלאות!");
+    }
+  });
+
 });
+
