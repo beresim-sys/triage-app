@@ -509,6 +509,10 @@ const initApp = () => {
       e.stopPropagation();
       e.preventDefault();
       const nextIndex = parseInt(nextBtn.getAttribute('data-next'), 10);
+      
+      // DIAGNOSTIC ALERT
+      alert(`קליק זוהה! מנסה לעבור לתחנה מספר: ${nextIndex + 1}`);
+      
       transitionToStep(nextIndex);
       
       setTimeout(() => {
