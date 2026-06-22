@@ -2,7 +2,7 @@
    Bloom Triage Journey Tracker - Interactive Application (Hebrew RTL version)
    -------------------------------------------------------- */
 
-document.addEventListener('DOMContentLoaded', () => {
+const initApp = () => {
   
   // --- APPLICATION STATE ---
   const state = {
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function transitionToStep(stepIndex) {
     if (stepIndex < 0 || stepIndex > 3) return;
     
-    // Update state
+    // Update state - only expand the newly selected step and collapse others
     state.currentStep = stepIndex;
     state.expandedSteps = [stepIndex];
     
@@ -157,6 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   elements.simResetBtn.addEventListener('click', () => {
+    // Reset state to step 0
     state.currentStep = 0;
     state.expandedSteps = [0];
     elements.simStepBtns.forEach(b => b.classList.remove('active'));
@@ -271,6 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
   elements.timelineItems.forEach(item => {
     const header = item.querySelector('.timeline-card');
     header.addEventListener('click', (e) => {
+      // Don't expand/collapse if buttons or checkboxes are clicked
       if (e.target.closest('.checklist-item')) return;
       if (e.target.closest('.next-step-btn') || e.target.closest('.finish-journey-btn')) return;
       
@@ -392,7 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
           responseDelay = 2000;
           break;
         case 'wait':
-          msgText = "סליחה, אפשר לקבל עדכון לגבי זמן ההמתנה המשוער לבדיקת רופא/ה?";
+          msgText = "סליחה, אפשר לקבל עדכון לגטי זמן ההמתנה המשוער לבדיקת רופא/ה?";
           toastConfirmText = "בקשת בדיקת זמנים נשלחה!";
           replyText = "כמובן. הרופא/ה במיון עובר/ת כעת על רישומי המוניטור של תחנה 2. זמן ההמתנה המשוער להתחלת תחנה 3 הוא כ-15-20 דקות. תודה רבה על הסבלנות.";
           break;
@@ -492,7 +494,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(() => {
       index = (index + 1) % supportiveTips.length;
       
-       tipTextNode.style.opacity = '0';
+      tipTextNode.style.opacity = '0';
       setTimeout(() => {
         tipTextNode.textContent = supportiveTips[index];
         tipTextNode.style.opacity = '1';
@@ -500,12 +502,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 15000);
   }
 
-  // --- JOURNEY NAVIGATION BUTTONS ---
-  const nextBtns = document.querySelectorAll('.next-step-btn');
-  nextBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
+  // --- JOURNEY NAVIGATION BUTTONS (GLOBAL DELEGATION - TIMING PROOF) ---
+  document.addEventListener('click', (e) => {
+    const nextBtn = e.target.closest('.next-step-btn');
+    if (nextBtn) {
       e.stopPropagation();
-      const nextIndex = parseInt(btn.getAttribute('data-next'), 10);
+      e.preventDefault();
+      const nextIndex = parseInt(nextBtn.getAttribute('data-next'), 10);
       transitionToStep(nextIndex);
       
       setTimeout(() => {
@@ -514,17 +517,35 @@ document.addEventListener('DOMContentLoaded', () => {
           nextCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
       }, 300);
-    });
-  });
+      return;
+    }
 
-  const finishBtn = document.querySelector('.finish-journey-btn');
-  if (finishBtn) {
-    finishBtn.addEventListener('click', (e) => {
+    const finishBtn = e.target.closest('.finish-journey-btn');
+    if (finishBtn) {
       e.stopPropagation();
+      e.preventDefault();
       showToast("כל הכבוד! השלמת את תהליך המיון בהצלחה.");
       addChatMessage('system', "תהליך המיון הושלם בהצלחה. בריאות שלמה וידיים מלאות!");
-    });
+    }
+  });
+
+};
+
+// Timing-safe window load trigger
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
+
+// Global visual error logger for diagnostics
+window.addEventListener('error', (e) => {
+  const toast = document.getElementById('appToast');
+  const toastMsg = document.getElementById('toastMessage');
+  if (toast && toastMsg) {
+    toastMsg.textContent = `שגיאת קוד: ${e.message}`;
+    toast.classList.add('active');
+    setTimeout(() => toast.classList.remove('active'), 5000);
   }
-
+  console.error("Bloom Triage Global Error Catch:", e);
 });
-
