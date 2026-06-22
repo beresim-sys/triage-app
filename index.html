@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <title>Maternity Triage Journey Tracker</title>
+  <title>מעקב מיון יולדות - Bloom Triage</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,23 +19,23 @@
 
   <!-- Simulation Control Hub (Collapsible) -->
   <div class="sim-panel-wrapper" id="simPanelWrapper">
-    <button class="sim-toggle-btn" id="simToggleBtn" aria-label="Toggle Simulator Settings">
+    <button class="sim-toggle-btn" id="simToggleBtn" aria-label="שינוי הגדרות סימולטור">
       <svg class="icon" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2zM12 15a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
-      <span>Demo Controls</span>
+      <span>לוח בקרה לסימולציה</span>
     </button>
     <div class="sim-panel-content" id="simPanelContent">
       <div class="sim-header">
-        <h4>Triage Demo Simulator Hub</h4>
-        <p>Manually cycle between stations to test how status, colors, indicators, and details shift in real-time.</p>
+        <h4>סימולטור התקדמות במיון</h4>
+        <p>עברי בין התחנות באופן ידני כדי לבדוק כיצד הצבעים, הסטטוס, המדדים והפרטים משתנים בזמן אמת.</p>
       </div>
       <div class="sim-options">
-        <button class="sim-step-btn active" data-step="0">Station 1</button>
-        <button class="sim-step-btn" data-step="1">Station 2</button>
-        <button class="sim-step-btn" data-step="2">Station 3</button>
-        <button class="sim-step-btn" data-step="3">Station 4</button>
+        <button class="sim-step-btn active" data-step="0">תחנה 1</button>
+        <button class="sim-step-btn" data-step="1">תחנה 2</button>
+        <button class="sim-step-btn" data-step="2">תחנה 3</button>
+        <button class="sim-step-btn" data-step="3">תחנה 4</button>
       </div>
       <div class="sim-actions">
-        <button class="sim-reset-btn" id="simResetBtn">Reset Journey</button>
+        <button class="sim-reset-btn" id="simResetBtn">איפוס התהליך</button>
       </div>
     </div>
   </div>
@@ -48,15 +48,15 @@
         <div class="logo-icon-bg">
           <svg class="logo-svg" viewBox="0 0 24 24" width="24" height="24">
             <!-- Empathy/care heart-shape nesting a gentle wave -->
-            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2".5 d="M12 21c-1.5-1.5-6.5-5.5-8.5-8.5C1.5 9.5 2 5.5 5.5 3.5c3-1.5 5.5.5 6.5 2.5 1-2 3.5-4 6.5-2.5 3.5 2 4 6 2 9-2 3-7 7-8.5 8.5z"/>
+            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 21c-1.5-1.5-6.5-5.5-8.5-8.5C1.5 9.5 2 5.5 5.5 3.5c3-1.5 5.5.5 6.5 2.5 1-2 3.5-4 6.5-2.5 3.5 2 4 6 2 9-2 3-7 7-8.5 8.5z"/>
           </svg>
         </div>
         <div class="logo-text">
-          <h1>Bloom Triage</h1>
-          <p>Your Journey Companion</p>
+          <h1>בלום מיון</h1>
+          <p>הליווי האישי שלך במיון</p>
         </div>
       </div>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle visual theme">
+      <button class="theme-toggle" id="themeToggle" aria-label="שינוי ערכת נושא">
         <svg class="sun-icon icon" viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
         <svg class="moon-icon icon" viewBox="0 0 24 24" width="20" height="20" style="display: none;"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
       </button>
@@ -76,21 +76,21 @@
             <div class="online-indicator"></div>
           </div>
           <div class="rep-info">
-            <span class="rep-tag">Triage Reception</span>
-            <h3>Sarah</h3>
+            <span class="rep-tag">דלפק קבלה</span>
+            <h3>שרה</h3>
           </div>
         </div>
         <div class="welcome-bubble">
-          <p>"Hello and welcome to the Maternity Triage! We know this can be an emotional and overwhelming moment, so we are here to support you. We've created this simple tracker so you know exactly what to expect during your visit today."</p>
+          <p>"שלום וברוכים הבאים למיון יולדות! אנחנו יודעים שזה יכול להיות רגע רגשי ומציף, ולכן אנחנו כאן כדי לתמוך בך. יצרנו את המעקב הפשוט הזה כדי שתדעי בדיוק למה לצפות במהלך הביקור שלך היום."</p>
         </div>
         <div class="welcome-meta">
           <div class="meta-item">
             <svg class="icon text-primary" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zM12 6v6l4 2"/></svg>
-            <span id="currentStatusTime">Arrived: Just now</span>
+            <span id="currentStatusTime">הגעה: ממש עכשיו</span>
           </div>
           <div class="meta-item">
             <svg class="icon text-secondary" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            <span>Staff Notified</span>
+            <span>צוות המיון עודכן</span>
           </div>
         </div>
       </div>
@@ -105,21 +105,21 @@
               <svg viewBox="0 0 24 24" class="icon animate-float" width="20" height="20"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0 M12 3a9 9 0 0 0 0 18"/></svg>
             </div>
             <div>
-              <h4>Feeling anxious or having a contraction?</h4>
-              <p class="subtitle">Try our 1-minute breathing helper</p>
+              <h4>חווה ציר או תחושת מתח?</h4>
+              <p class="subtitle">נסי תרגיל נשימה מרגיע של דקה</p>
             </div>
           </div>
-          <button class="breath-toggle-action" id="breathToggleBtn">Try it</button>
+          <button class="breath-toggle-action" id="breathToggleBtn">נתחיל?</button>
         </div>
         <div class="breath-body collapsed" id="breathBody">
           <div class="breathing-circle-container">
             <div class="breathing-circle" id="breathCircle"></div>
             <div class="breathing-core"></div>
-            <span class="breathing-instruction" id="breathText">Inhale...</span>
+            <span class="breathing-instruction" id="breathText">שאיפה...</span>
           </div>
           <div class="breath-controls">
-            <button class="breath-control-btn active" id="breathControlBtn">Start Guide</button>
-            <p class="breath-helper-text">Focus on the pulsing ring. Synchronize your breathing to find your center.</p>
+            <button class="breath-control-btn active" id="breathControlBtn">התחלת הדרכה</button>
+            <p class="breath-helper-text">התרכזי בטבעת המתרחבת. שאפי אוויר כשהיא גדלה, ונשפי כשהיא קטנה.</p>
           </div>
         </div>
       </div>
@@ -128,8 +128,8 @@
     <!-- The Journey Tracker Timeline -->
     <section class="journey-section">
       <div class="section-title">
-        <h2>Your Triage Journey</h2>
-        <span class="badge" id="overallProgressBadge">Station 1 of 4</span>
+        <h2>תהליך הקבלה שלך</h2>
+        <span class="badge" id="overallProgressBadge">תחנה 1 מתוך 4</span>
       </div>
 
       <div class="timeline" id="timeline">
@@ -151,41 +151,41 @@
                 <svg viewBox="0 0 24 24" width="20" height="20" class="station-icon"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2M9 2h6v4H9zM9 12h6M9 16h4"/></svg>
               </div>
               <div class="station-title-area">
-                <span class="station-status-label">Active Station</span>
-                <h3>Station 1: Midwife Consultation</h3>
+                <span class="station-status-label">תחנה פעילה</span>
+                <h3>תחנה 1: קבלת מיילדת</h3>
               </div>
-              <button class="expand-btn" aria-label="Expand details">
+              <button class="expand-btn" aria-label="הרחבת פרטים">
                 <svg viewBox="0 0 24 24" width="18" height="18" class="chevron"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9 6 6 6-6"/></svg>
               </button>
             </div>
             
             <div class="timeline-content">
-              <p class="station-desc">"A chat with our midwife to go over your pregnancy history. We will also measure your vital signs (blood pressure, pulse, and temperature) and do a quick urine dipstick test."</p>
+              <p class="station-desc">"שיחה עם המיילדת שלנו למעבר על היסטוריית ההיריון שלך. נמדוד גם סימנים חיוניים (לחץ דם, דופק וחום) ונבצע בדיקת שתן מהירה (סטיק שתן)."</p>
               
               <div class="details-divider"></div>
               
               <div class="expectations">
-                <h4>What happens here:</h4>
+                <h4>מה קורה בשלב זה:</h4>
                 <ul class="checklist">
                   <li>
                     <label class="checklist-item">
                       <input type="checkbox" checked disabled>
                       <span class="custom-check"></span>
-                      <span class="item-text text-completed">Review medical file & pregnancy booklet</span>
+                      <span class="item-text text-completed">סקירת תיק רפואי וכרטיס מעקב היריון</span>
                     </label>
                   </li>
                   <li>
                     <label class="checklist-item">
                       <input type="checkbox" id="check-vitals" class="interactive-checkbox">
                       <span class="custom-check"></span>
-                      <span class="item-text">Measure vital signs (blood pressure, pulse, temperature)</span>
+                      <span class="item-text">מדידת סימנים חיוניים (לחץ דם, דופק, חום)</span>
                     </label>
                   </li>
                   <li>
                     <label class="checklist-item">
                       <input type="checkbox" id="check-urine" class="interactive-checkbox">
                       <span class="custom-check"></span>
-                      <span class="item-text">Urine analysis (dipstick test)</span>
+                      <span class="item-text">בדיקת שתן בסטיק מהיר</span>
                     </label>
                   </li>
                 </ul>
@@ -193,7 +193,7 @@
 
               <div class="station-footer-note">
                 <svg viewBox="0 0 24 24" width="14" height="14" class="info-inline"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 16v-4m0-4h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                <span>Typical length: 15–20 minutes</span>
+                <span>משך זמן משוער: 15–20 דקות</span>
               </div>
             </div>
           </div>
@@ -216,41 +216,41 @@
                 <svg viewBox="0 0 24 24" width="20" height="20" class="station-icon"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
               </div>
               <div class="station-title-area">
-                <span class="station-status-label">Pending</span>
-                <h3>Station 2: Fetal Monitoring</h3>
+                <span class="station-status-label">השלב הבא</span>
+                <h3>תחנה 2: ניטור עוברי (מוניטור)</h3>
               </div>
-              <button class="expand-btn" aria-label="Expand details">
+              <button class="expand-btn" aria-label="הרחבת פרטים">
                 <svg viewBox="0 0 24 24" width="18" height="18" class="chevron"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9 6 6 6-6"/></svg>
               </button>
             </div>
             
             <div class="timeline-content">
-              <p class="station-desc">"You will be connected to a monitor for about 20 minutes to evaluate your baby's wellbeing and track any contractions."</p>
+              <p class="station-desc">"חיבור למכשיר המוניטור למשך כ-20 דקות כדי להעריך את דופק העובר ולעקוב אחר פעילות הרחם (צירים)."</p>
               
               <div class="details-divider"></div>
               
               <div class="expectations">
-                <h4>What happens here:</h4>
+                <h4>מה קורה בשלב זה:</h4>
                 <ul class="checklist">
                   <li>
                     <label class="checklist-item">
                       <input type="checkbox" id="check-belts" class="interactive-checkbox" disabled>
                       <span class="custom-check"></span>
-                      <span class="item-text">Applying two soft belts to monitor baby and womb</span>
+                      <span class="item-text">הנחת שתי חגורות אלסטיות רכות על הבטן</span>
                     </label>
                   </li>
                   <li>
                     <label class="checklist-item">
                       <input type="checkbox" id="check-ctg" class="interactive-checkbox" disabled>
                       <span class="custom-check"></span>
-                      <span class="item-text">Cardiotocography (CTG) recording baby's heart rate</span>
+                      <span class="item-text">רישום דופק העובר והאזנה לפעילות הלב שלו</span>
                     </label>
                   </li>
                   <li>
                     <label class="checklist-item">
                       <input type="checkbox" id="check-contractions" class="interactive-checkbox" disabled>
                       <span class="custom-check"></span>
-                      <span class="item-text">Tracking contraction strength and frequency</span>
+                      <span class="item-text">מעקב ורישום של צירים ופעילות רחמית</span>
                     </label>
                   </li>
                 </ul>
@@ -258,7 +258,7 @@
 
               <div class="station-footer-note">
                 <svg viewBox="0 0 24 24" width="14" height="14" class="info-inline"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 16v-4m0-4h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                <span>Typical length: 20–30 minutes</span>
+                <span>משך זמן משוער: 20–30 דקות</span>
               </div>
             </div>
           </div>
@@ -281,41 +281,41 @@
                 <svg viewBox="0 0 24 24" width="20" height="20" class="station-icon"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20M12 6v6m-3-3h6"/></svg>
               </div>
               <div class="station-title-area">
-                <span class="station-status-label">Pending</span>
-                <h3>Station 3: Doctor's Examination</h3>
+                <span class="station-status-label">ממתין</span>
+                <h3>תחנה 3: בדיקת רופא/ה</h3>
               </div>
-              <button class="expand-btn" aria-label="Expand details">
+              <button class="expand-btn" aria-label="הרחבת פרטים">
                 <svg viewBox="0 0 24 24" width="18" height="18" class="chevron"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9 6 6 6-6"/></svg>
               </button>
             </div>
             
             <div class="timeline-content">
-              <p class="station-desc">"A visit with the doctor. This includes an ultrasound and, if necessary, a vaginal examination to check for cervical dilation."</p>
+              <p class="station-desc">"בדיקה על ידי רופא/ה מומחה. בדיקה זו כוללת אולטרסאונד ובמידת הצורך בדיקה נרתיקית (ואגינלית) לבדיקת מחיקה ופתיחה של צוואר הרחם."</p>
               
               <div class="details-divider"></div>
               
               <div class="expectations">
-                <h4>What happens here:</h4>
+                <h4>מה קורה בשלב זה:</h4>
                 <ul class="checklist">
                   <li>
                     <label class="checklist-item">
                       <input type="checkbox" id="check-ultrasound" class="interactive-checkbox" disabled>
                       <span class="custom-check"></span>
-                      <span class="item-text">Ultrasound scan to review baby's positioning & amniotic fluid</span>
+                      <span class="item-text">בדיקת אולטרסאונד להערכת מנח העובר וכמות מי השפיר</span>
                     </label>
                   </li>
                   <li>
                     <label class="checklist-item">
                       <input type="checkbox" id="check-vaginal" class="interactive-checkbox" disabled>
                       <span class="custom-check"></span>
-                      <span class="item-text">Physical assessment of cervical changes (if needed)</span>
+                      <span class="item-text">בדיקה גופנית פנימית להערכת מצב צוואר הרחם (במידה ונדרש)</span>
                     </label>
                   </li>
                   <li>
                     <label class="checklist-item">
                       <input type="checkbox" id="check-results" class="interactive-checkbox" disabled>
                       <span class="custom-check"></span>
-                      <span class="item-text">Consultation on results & options</span>
+                      <span class="item-text">שיחת סיכום תוצאות והסבר על אפשרויות ההמשך</span>
                     </label>
                   </li>
                 </ul>
@@ -323,7 +323,7 @@
 
               <div class="station-footer-note">
                 <svg viewBox="0 0 24 24" width="14" height="14" class="info-inline"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 16v-4m0-4h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                <span>Typical length: 15–20 minutes</span>
+                <span>משך זמן משוער: 15–20 דקות</span>
               </div>
             </div>
           </div>
@@ -346,49 +346,49 @@
                 <svg viewBox="0 0 24 24" width="20" height="20" class="station-icon"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8m0 0H15m6 0V2m-9 19a9 9 0 0 1-9-9 9.75 9.75 0 0 1 2.74-6.74L6 3m0 0h6M6 3v6"/></svg>
               </div>
               <div class="station-title-area">
-                <span class="station-status-label">Pending</span>
-                <h3>Station 4: Next Steps & Recommendation</h3>
+                <span class="station-status-label">ממתין</span>
+                <h3>תחנה 4: המלצה והמשך טיפול</h3>
               </div>
-              <button class="expand-btn" aria-label="Expand details">
+              <button class="expand-btn" aria-label="הרחבת פרטים">
                 <svg viewBox="0 0 24 24" width="18" height="18" class="chevron"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9 6 6 6-6"/></svg>
               </button>
             </div>
             
             <div class="timeline-content">
-              <p class="station-desc">"Following the doctor's assessment, we will recommend the best next step for you: continued observation in triage, moving to a delivery room, admission to the maternal-fetal medicine department, or safely discharging you home."</p>
+              <p class="station-desc">"לאחר הערכת הרופא/ה, נמליץ על המשך הטיפול המתאים ביותר עבורך: המשך מעקב והשגחה במיון, מעבר לחדר לידה פעילה, אשפוז במחלקת היריון בסיכון או שחרור בטוח לביתך."</p>
               
               <div class="details-divider"></div>
               
               <div class="expectations">
-                <h4>Potential Pathways:</h4>
+                <h4>אפשרויות והמשך מסלול:</h4>
                 <div class="pathway-grid">
                   <div class="pathway-card" id="path-discharge">
                     <div class="pathway-icon">
                       <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 18 6-6-6-6M21 12H9M3 12h2"/></svg>
                     </div>
-                    <strong>Safe Discharge</strong>
-                    <p>Head home with clear follow-up guidelines.</p>
+                    <strong>שחרור הביתה</strong>
+                    <p>חזרה בטוחה הביתה עם הנחיות מעקב ברורות.</p>
                   </div>
                   <div class="pathway-card" id="path-observe">
                     <div class="pathway-icon">
                       <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
                     </div>
-                    <strong>Observation</strong>
-                    <p>Stay in triage for short-term monitoring.</p>
+                    <strong>המשך השגחה</strong>
+                    <p>הישארות במיון יולדות להמשך ניטור קצר.</p>
                   </div>
                   <div class="pathway-card" id="path-delivery">
                     <div class="pathway-icon">
                       <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
                     </div>
-                    <strong>Delivery Room</strong>
-                    <p>Admit to labor and delivery to meet your baby.</p>
+                    <strong>קבלה לחדר לידה</strong>
+                    <p>מעבר לחדר לידה וליווי צמוד של מיילדת.</p>
                   </div>
                   <div class="pathway-card" id="path-ward">
                     <div class="pathway-icon">
                       <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16M9 9h6M9 13h6M9 17h6"/></svg>
                     </div>
-                    <strong>Maternal Ward</strong>
-                    <p>Admission for extended antenatal care.</p>
+                    <strong>אשפוז במחלקה</strong>
+                    <p>מעבר למחלקת נשים או היריון בסיכון להשגחה.</p>
                   </div>
                 </div>
               </div>
@@ -405,8 +405,8 @@
         <div class="tip-content">
           <span class="tip-icon">💡</span>
           <div class="tip-text-area">
-            <h4>Supportive Tip</h4>
-            <p id="dynamicTipText">You are doing beautifully. Feel free to adjust the room lighting or ask your support partner to hold your hand. Relaxing your jaw helps soften contractions.</p>
+            <h4>טיפ תמיכה והרגעה</h4>
+            <p id="dynamicTipText">את מתפקדת בצורה מדהימה. את מוזמנת לעמעם את האורות בחדר או לבקש מהמלווה שלך להחזיק לך את היד. הרפיית הלסת עוזרת לרכך את עוצמת הצירים.</p>
           </div>
         </div>
       </div>
@@ -424,7 +424,7 @@
       <div class="help-btn-content">
         <span class="pulse-indicator-help"></span>
         <svg viewBox="0 0 24 24" width="20" height="20" class="icon"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        <span>Need Assistance?</span>
+        <span>צריכה עזרה או סיוע?</span>
       </div>
     </button>
   </div>
@@ -444,41 +444,41 @@
           <svg viewBox="0 0 24 24" width="20" height="20" class="text-primary"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         </div>
         <div>
-          <h3>Triage Desk Connection</h3>
-          <p class="drawer-subtitle">Send alerts or message Sarah directly</p>
+          <h3>קשר ישיר עם הקבלה</h3>
+          <p class="drawer-subtitle">שלחי בקשה מהירה או הודעה ישירה לשרה</p>
         </div>
       </div>
-      <button class="close-drawer-btn" id="closeDrawerBtn" aria-label="Close desk helper drawer">&times;</button>
+      <button class="close-drawer-btn" id="closeDrawerBtn" aria-label="סגירת תפריט סיוע">&times;</button>
     </div>
 
     <div class="drawer-content">
       <!-- Quick alerts buttons -->
-      <div class="quick-title">Quick Triage Requests</div>
+      <div class="quick-title">בקשות מהירות במיון</div>
       <div class="request-grid">
         <button class="req-action-btn" data-req="water">
           <span class="req-icon">💧</span>
-          <span class="req-title">Request Water</span>
-          <span class="req-desc">Ask for cold drinking water</span>
+          <span class="req-title">בקשת כוס מים</span>
+          <span class="req-desc">נביא לך כוס מים קרים לחדר</span>
         </button>
         <button class="req-action-btn" data-req="discomfort">
           <span class="req-icon">⚡</span>
-          <span class="req-title">Pain Alert</span>
-          <span class="req-desc">Report spikes in pain or contractions</span>
+          <span class="req-title">דיווח על כאב</span>
+          <span class="req-desc">עדכני את המיילדות על עלייה ברמת הכאב</span>
         </button>
         <button class="req-action-btn" data-req="wait">
           <span class="req-icon">⏱️</span>
-          <span class="req-title">Status Check</span>
-          <span class="req-desc">Request an estimate on next stage</span>
+          <span class="req-title">בדיקת זמנים</span>
+          <span class="req-desc">כמה זמן נותר עד לבדיקת רופא/ה?</span>
         </button>
         <button class="req-action-btn" data-req="blanket">
           <span class="req-icon">🧶</span>
-          <span class="req-title">Request Blanket</span>
-          <span class="req-desc">Ask for a warm sanitised blanket</span>
+          <span class="req-title">בקשת שמיכה</span>
+          <span class="req-desc">שמיכה חמה שעברה חיטוי וניקוי</span>
         </button>
       </div>
 
       <div class="chat-separator">
-        <span>Direct Chat with Reception</span>
+        <span>צ'אט ישיר עם דלפק הקבלה</span>
       </div>
 
       <!-- Simulated Chat Panel -->
@@ -486,13 +486,14 @@
         <div class="chat-log" id="chatLog">
           <div class="message system-msg">
             <span class="msg-time">16:48</span>
-            <p>Welcome to Bloom Triage. Please type below or tap a quick request button to send a priority update to Sarah at reception.</p>
+            <p>ברוכים הבאים למיון בלום. אנא הקלידי הודעה או לחצי על כפתור בקשה מהירה למעלה לשליחת עדכון לשרה בקבלה.</p>
           </div>
         </div>
         <div class="chat-input-area">
-          <input type="text" id="chatInput" placeholder="Write your message here..." aria-label="Send text to desk">
-          <button id="sendChatBtn" aria-label="Submit message">
-            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m22 2-7 20-4-9-9-4Z"/></svg>
+          <input type="text" id="chatInput" placeholder="הקלידי את הודעתך כאן..." aria-label="שליחת הודעה לקבלה">
+          <button id="sendChatBtn" aria-label="שלח הודעה">
+            <!-- Left facing send arrow for RTL -->
+            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m2 12 20-9-4 9 4 9Z"/></svg>
           </button>
         </div>
       </div>
@@ -500,7 +501,7 @@
       <!-- Direct Dial button -->
       <a href="tel:55525666" class="direct-call-link">
         <svg viewBox="0 0 24 24" width="16" height="16" class="icon"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        <span>Call Triage Front Desk (555-0199)</span>
+        <span>חיוג טלפוני לקבלה (555-0199)</span>
       </a>
     </div>
   </div>
@@ -508,7 +509,7 @@
   <!-- Notification Toast -->
   <div class="toast" id="appToast">
     <div class="toast-indicator"></div>
-    <span id="toastMessage">Request sent successfully!</span>
+    <span id="toastMessage">הבקשה נשלחה בהצלחה!</span>
   </div>
 
   <script src="app.js"></script>
