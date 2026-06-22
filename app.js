@@ -125,9 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Update state
     state.currentStep = stepIndex;
-    if (!state.expandedSteps.includes(stepIndex)) {
-      state.expandedSteps.push(stepIndex);
-    }
+    state.expandedSteps = [stepIndex];
     
     updateTimelineUI();
     showToast(`המעקב הועבר לתחנה ${stepIndex + 1}`);
@@ -257,13 +255,15 @@ document.addEventListener('DOMContentLoaded', () => {
         showToast("בדיקות המיילדת הושלמו בהצלחה!");
         addChatMessage('desk', "ראיתי שהמיילדת סיימה את בדיקת המדדים וסטיק השתן שלך במיון. אנחנו נערכים להעביר אותך לחדר הניטור העובר (תחנה 2) מיד.");
         
-        // Auto-toggle to step 2 in simulation for seamless flow
-        const step2Btn = document.querySelector('.sim-step-btn[data-step="1"]');
-        if (step2Btn) {
+        setTimeout(() => {
+          transitionToStep(1);
           setTimeout(() => {
-            step2Btn.click();
-          }, 2500);
-        }
+            const nextCard = document.getElementById('station-1');
+            if (nextCard) {
+              nextCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          }, 300);
+        }, 2500);
       }, 1000);
     }
   }
