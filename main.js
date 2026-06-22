@@ -2,6 +2,18 @@
    Bloom Triage Journey Tracker - Interactive Application (Hebrew RTL version)
    -------------------------------------------------------- */
 
+// Global visual error logger for diagnostics (registered first)
+window.addEventListener('error', (e) => {
+  const toast = document.getElementById('appToast');
+  const toastMsg = document.getElementById('toastMessage');
+  if (toast && toastMsg) {
+    toastMsg.textContent = `שגיאת קוד: ${e.message}`;
+    toast.classList.add('active');
+    setTimeout(() => toast.classList.remove('active'), 5000);
+  }
+  console.error("Bloom Triage Global Error Catch:", e);
+});
+
 const initApp = () => {
   
   // --- APPLICATION STATE ---
@@ -529,15 +541,3 @@ if (document.readyState === 'loading') {
 } else {
   initApp();
 }
-
-// Global visual error logger for diagnostics
-window.addEventListener('error', (e) => {
-  const toast = document.getElementById('appToast');
-  const toastMsg = document.getElementById('toastMessage');
-  if (toast && toastMsg) {
-    toastMsg.textContent = `שגיאת קוד: ${e.message}`;
-    toast.classList.add('active');
-    setTimeout(() => toast.classList.remove('active'), 5000);
-  }
-  console.error("Bloom Triage Global Error Catch:", e);
-});
