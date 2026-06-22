@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Maternity Triage Journey Tracker</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Simulation Control Hub (Collapsible) -->
+  <div class="sim-panel-wrapper" id="simPanelWrapper">
+    <button class="sim-toggle-btn" id="simToggleBtn" aria-label="Toggle Simulator Settings">
+      <svg class="icon" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2zM12 15a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
+      <span>Demo Controls</span>
+    </button>
+    <div class="sim-panel-content" id="simPanelContent">
+      <div class="sim-header">
+        <h4>Triage Demo Simulator Hub</h4>
+        <p>Manually cycle between stations to test how status, colors, indicators, and details shift in real-time.</p>
+      </div>
+      <div class="sim-options">
+        <button class="sim-step-btn active" data-step="0">Station 1</button>
+        <button class="sim-step-btn" data-step="1">Station 2</button>
+        <button class="sim-step-btn" data-step="2">Station 3</button>
+        <button class="sim-step-btn" data-step="3">Station 4</button>
+      </div>
+      <div class="sim-actions">
+        <button class="sim-reset-btn" id="simResetBtn">Reset Journey</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    
+    <!-- Top Header -->
+    <header class="app-header">
+      <div class="logo-area">
+        <div class="logo-icon-bg">
+          <svg class="logo-svg" viewBox="0 0 24 24" width="24" height="24">
+            <!-- Empathy/care heart-shape nesting a gentle wave -->
+            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2".5 d="M12 21c-1.5-1.5-6.5-5.5-8.5-8.5C1.5 9.5 2 5.5 5.5 3.5c3-1.5 5.5.5 6.5 2.5 1-2 3.5-4 6.5-2.5 3.5 2 4 6 2 9-2 3-7 7-8.5 8.5z"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <h1>Bloom Triage</h1>
+          <p>Your Journey Companion</p>
+        </div>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle visual theme">
+        <svg class="sun-icon icon" viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+        <svg class="moon-icon icon" viewBox="0 0 24 24" width="20" height="20" style="display: none;"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+      </button>
+    </header>
+
+    <!-- Welcome Section -->
+    <section class="welcome-section" id="welcomeSection">
+      <div class="welcome-card glass-card">
+        <div class="rep-avatar-wrapper">
+          <div class="rep-avatar">
+            <svg viewBox="0 0 100 100" class="avatar-svg">
+              <circle cx="50" cy="50" r="48" fill="var(--color-welcome-avatar-bg)" />
+              <path d="M50 30a15 15 0 1 0 0 30 15 15 0 0 0 0-30zm-25 50c0-10 10-18 25-18s25 8 25 18H25z" fill="var(--color-primary)" />
+              <circle cx="50" cy="52" r="1.5" fill="#fff" />
+              <path d="M47 70 C 49 71, 51 71, 53 70" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            </svg>
+            <div class="online-indicator"></div>
+          </div>
+          <div class="rep-info">
+            <span class="rep-tag">Triage Reception</span>
+            <h3>Sarah</h3>
+          </div>
+        </div>
+        <div class="welcome-bubble">
+          <p>"Hello and welcome to the Maternity Triage! We know this can be an emotional and overwhelming moment, so we are here to support you. We've created this simple tracker so you know exactly what to expect during your visit today."</p>
+        </div>
+        <div class="welcome-meta">
+          <div class="meta-item">
+            <svg class="icon text-primary" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zM12 6v6l4 2"/></svg>
+            <span id="currentStatusTime">Arrived: Just now</span>
+          </div>
+          <div class="meta-item">
+            <svg class="icon text-secondary" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <span>Staff Notified</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Calming Interactive Tool: Breathing Assistant -->
+    <section class="calming-section">
+      <div class="breath-card glass-card" id="breathCard">
+        <div class="breath-header" id="breathHeader">
+          <div class="breath-title-area">
+            <div class="breath-icon-wrapper">
+              <svg viewBox="0 0 24 24" class="icon animate-float" width="20" height="20"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0 M12 3a9 9 0 0 0 0 18"/></svg>
+            </div>
+            <div>
+              <h4>Feeling anxious or having a contraction?</h4>
+              <p class="subtitle">Try our 1-minute breathing helper</p>
+            </div>
+          </div>
+          <button class="breath-toggle-action" id="breathToggleBtn">Try it</button>
+        </div>
+        <div class="breath-body collapsed" id="breathBody">
+          <div class="breathing-circle-container">
+            <div class="breathing-circle" id="breathCircle"></div>
+            <div class="breathing-core"></div>
+            <span class="breathing-instruction" id="breathText">Inhale...</span>
+          </div>
+          <div class="breath-controls">
+            <button class="breath-control-btn active" id="breathControlBtn">Start Guide</button>
+            <p class="breath-helper-text">Focus on the pulsing ring. Synchronize your breathing to find your center.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- The Journey Tracker Timeline -->
+    <section class="journey-section">
+      <div class="section-title">
+        <h2>Your Triage Journey</h2>
+        <span class="badge" id="overallProgressBadge">Station 1 of 4</span>
+      </div>
+
+      <div class="timeline" id="timeline">
+        
+        <!-- Station 1 -->
+        <div class="timeline-item active" id="station-0" data-index="0">
+          <div class="timeline-status-column">
+            <div class="timeline-badge">
+              <span class="badge-number">1</span>
+              <svg class="checkmark-icon" viewBox="0 0 24 24" width="14" height="14"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            <div class="timeline-line">
+              <div class="timeline-line-fill"></div>
+            </div>
+          </div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="station-icon-wrapper">
+                <svg viewBox="0 0 24 24" width="20" height="20" class="station-icon"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2M9 2h6v4H9zM9 12h6M9 16h4"/></svg>
+              </div>
+              <div class="station-title-area">
+                <span class="station-status-label">Active Station</span>
+                <h3>Station 1: Midwife Consultation</h3>
+              </div>
+              <button class="expand-btn" aria-label="Expand details">
+                <svg viewBox="0 0 24 24" width="18" height="18" class="chevron"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9 6 6 6-6"/></svg>
+              </button>
+            </div>
+            
+            <div class="timeline-content">
+              <p class="station-desc">"A chat with our midwife to go over your pregnancy history. We will also measure your vital signs (blood pressure, pulse, and temperature) and do a quick urine dipstick test."</p>
+              
+              <div class="details-divider"></div>
+              
+              <div class="expectations">
+                <h4>What happens here:</h4>
+                <ul class="checklist">
+                  <li>
+                    <label class="checklist-item">
+                      <input type="checkbox" checked disabled>
+                      <span class="custom-check"></span>
+                      <span class="item-text text-completed">Review medical file & pregnancy booklet</span>
+                    </label>
+                  </li>
+                  <li>
+                    <label class="checklist-item">
+                      <input type="checkbox" id="check-vitals" class="interactive-checkbox">
+                      <span class="custom-check"></span>
+                      <span class="item-text">Measure vital signs (blood pressure, pulse, temperature)</span>
+                    </label>
+                  </li>
+                  <li>
+                    <label class="checklist-item">
+                      <input type="checkbox" id="check-urine" class="interactive-checkbox">
+                      <span class="custom-check"></span>
+                      <span class="item-text">Urine analysis (dipstick test)</span>
+                    </label>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="station-footer-note">
+                <svg viewBox="0 0 24 24" width="14" height="14" class="info-inline"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 16v-4m0-4h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                <span>Typical length: 15–20 minutes</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Station 2 -->
+        <div class="timeline-item pending" id="station-1" data-index="1">
+          <div class="timeline-status-column">
+            <div class="timeline-badge">
+              <span class="badge-number">2</span>
+              <svg class="checkmark-icon" viewBox="0 0 24 24" width="14" height="14"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            <div class="timeline-line">
+              <div class="timeline-line-fill"></div>
+            </div>
+          </div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="station-icon-wrapper">
+                <svg viewBox="0 0 24 24" width="20" height="20" class="station-icon"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              </div>
+              <div class="station-title-area">
+                <span class="station-status-label">Pending</span>
+                <h3>Station 2: Fetal Monitoring</h3>
+              </div>
+              <button class="expand-btn" aria-label="Expand details">
+                <svg viewBox="0 0 24 24" width="18" height="18" class="chevron"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9 6 6 6-6"/></svg>
+              </button>
+            </div>
+            
+            <div class="timeline-content">
+              <p class="station-desc">"You will be connected to a monitor for about 20 minutes to evaluate your baby's wellbeing and track any contractions."</p>
+              
+              <div class="details-divider"></div>
+              
+              <div class="expectations">
+                <h4>What happens here:</h4>
+                <ul class="checklist">
+                  <li>
+                    <label class="checklist-item">
+                      <input type="checkbox" id="check-belts" class="interactive-checkbox" disabled>
+                      <span class="custom-check"></span>
+                      <span class="item-text">Applying two soft belts to monitor baby and womb</span>
+                    </label>
+                  </li>
+                  <li>
+                    <label class="checklist-item">
+                      <input type="checkbox" id="check-ctg" class="interactive-checkbox" disabled>
+                      <span class="custom-check"></span>
+                      <span class="item-text">Cardiotocography (CTG) recording baby's heart rate</span>
+                    </label>
+                  </li>
+                  <li>
+                    <label class="checklist-item">
+                      <input type="checkbox" id="check-contractions" class="interactive-checkbox" disabled>
+                      <span class="custom-check"></span>
+                      <span class="item-text">Tracking contraction strength and frequency</span>
+                    </label>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="station-footer-note">
+                <svg viewBox="0 0 24 24" width="14" height="14" class="info-inline"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 16v-4m0-4h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                <span>Typical length: 20–30 minutes</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Station 3 -->
+        <div class="timeline-item pending" id="station-2" data-index="2">
+          <div class="timeline-status-column">
+            <div class="timeline-badge">
+              <span class="badge-number">3</span>
+              <svg class="checkmark-icon" viewBox="0 0 24 24" width="14" height="14"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            <div class="timeline-line">
+              <div class="timeline-line-fill"></div>
+            </div>
+          </div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="station-icon-wrapper">
+                <svg viewBox="0 0 24 24" width="20" height="20" class="station-icon"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20M12 6v6m-3-3h6"/></svg>
+              </div>
+              <div class="station-title-area">
+                <span class="station-status-label">Pending</span>
+                <h3>Station 3: Doctor's Examination</h3>
+              </div>
+              <button class="expand-btn" aria-label="Expand details">
+                <svg viewBox="0 0 24 24" width="18" height="18" class="chevron"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9 6 6 6-6"/></svg>
+              </button>
+            </div>
+            
+            <div class="timeline-content">
+              <p class="station-desc">"A visit with the doctor. This includes an ultrasound and, if necessary, a vaginal examination to check for cervical dilation."</p>
+              
+              <div class="details-divider"></div>
+              
+              <div class="expectations">
+                <h4>What happens here:</h4>
+                <ul class="checklist">
+                  <li>
+                    <label class="checklist-item">
+                      <input type="checkbox" id="check-ultrasound" class="interactive-checkbox" disabled>
+                      <span class="custom-check"></span>
+                      <span class="item-text">Ultrasound scan to review baby's positioning & amniotic fluid</span>
+                    </label>
+                  </li>
+                  <li>
+                    <label class="checklist-item">
+                      <input type="checkbox" id="check-vaginal" class="interactive-checkbox" disabled>
+                      <span class="custom-check"></span>
+                      <span class="item-text">Physical assessment of cervical changes (if needed)</span>
+                    </label>
+                  </li>
+                  <li>
+                    <label class="checklist-item">
+                      <input type="checkbox" id="check-results" class="interactive-checkbox" disabled>
+                      <span class="custom-check"></span>
+                      <span class="item-text">Consultation on results & options</span>
+                    </label>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="station-footer-note">
+                <svg viewBox="0 0 24 24" width="14" height="14" class="info-inline"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 16v-4m0-4h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                <span>Typical length: 15–20 minutes</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Station 4 -->
+        <div class="timeline-item pending" id="station-3" data-index="3">
+          <div class="timeline-status-column">
+            <div class="timeline-badge">
+              <span class="badge-number">4</span>
+              <svg class="checkmark-icon" viewBox="0 0 24 24" width="14" height="14"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            <div class="timeline-line">
+              <div class="timeline-line-fill"></div>
+            </div>
+          </div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="station-icon-wrapper">
+                <svg viewBox="0 0 24 24" width="20" height="20" class="station-icon"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8m0 0H15m6 0V2m-9 19a9 9 0 0 1-9-9 9.75 9.75 0 0 1 2.74-6.74L6 3m0 0h6M6 3v6"/></svg>
+              </div>
+              <div class="station-title-area">
+                <span class="station-status-label">Pending</span>
+                <h3>Station 4: Next Steps & Recommendation</h3>
+              </div>
+              <button class="expand-btn" aria-label="Expand details">
+                <svg viewBox="0 0 24 24" width="18" height="18" class="chevron"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9 6 6 6-6"/></svg>
+              </button>
+            </div>
+            
+            <div class="timeline-content">
+              <p class="station-desc">"Following the doctor's assessment, we will recommend the best next step for you: continued observation in triage, moving to a delivery room, admission to the maternal-fetal medicine department, or safely discharging you home."</p>
+              
+              <div class="details-divider"></div>
+              
+              <div class="expectations">
+                <h4>Potential Pathways:</h4>
+                <div class="pathway-grid">
+                  <div class="pathway-card" id="path-discharge">
+                    <div class="pathway-icon">
+                      <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 18 6-6-6-6M21 12H9M3 12h2"/></svg>
+                    </div>
+                    <strong>Safe Discharge</strong>
+                    <p>Head home with clear follow-up guidelines.</p>
+                  </div>
+                  <div class="pathway-card" id="path-observe">
+                    <div class="pathway-icon">
+                      <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                    <strong>Observation</strong>
+                    <p>Stay in triage for short-term monitoring.</p>
+                  </div>
+                  <div class="pathway-card" id="path-delivery">
+                    <div class="pathway-icon">
+                      <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                    </div>
+                    <strong>Delivery Room</strong>
+                    <p>Admit to labor and delivery to meet your baby.</p>
+                  </div>
+                  <div class="pathway-card" id="path-ward">
+                    <div class="pathway-icon">
+                      <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16M9 9h6M9 13h6M9 17h6"/></svg>
+                    </div>
+                    <strong>Maternal Ward</strong>
+                    <p>Admission for extended antenatal care.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Calming Tip Box -->
+    <section class="tips-section">
+      <div class="tips-card glass-card">
+        <div class="tip-content">
+          <span class="tip-icon">💡</span>
+          <div class="tip-text-area">
+            <h4>Supportive Tip</h4>
+            <p id="dynamicTipText">You are doing beautifully. Feel free to adjust the room lighting or ask your support partner to hold your hand. Relaxing your jaw helps soften contractions.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Space for footer padding -->
+    <div class="bottom-spacer"></div>
+
+  </div> <!-- End App Container -->
+
+  <!-- Floating Sticky Call-To-Action bar -->
+  <div class="help-sticky-container">
+    <button class="help-btn-floating" id="helpBtnTrigger">
+      <div class="help-btn-bg"></div>
+      <div class="help-btn-content">
+        <span class="pulse-indicator-help"></span>
+        <svg viewBox="0 0 24 24" width="20" height="20" class="icon"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span>Need Assistance?</span>
+      </div>
+    </button>
+  </div>
+
+  <!-- Drawer Backdrop -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+  <!-- Bottom Sheet Drawer -->
+  <div class="bottom-sheet" id="helpBottomSheet">
+    <div class="drawer-handle-bar">
+      <div class="handle"></div>
+    </div>
+    
+    <div class="drawer-header">
+      <div class="header-main">
+        <div class="icon-circle">
+          <svg viewBox="0 0 24 24" width="20" height="20" class="text-primary"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div>
+          <h3>Triage Desk Connection</h3>
+          <p class="drawer-subtitle">Send alerts or message Sarah directly</p>
+        </div>
+      </div>
+      <button class="close-drawer-btn" id="closeDrawerBtn" aria-label="Close desk helper drawer">&times;</button>
+    </div>
+
+    <div class="drawer-content">
+      <!-- Quick alerts buttons -->
+      <div class="quick-title">Quick Triage Requests</div>
+      <div class="request-grid">
+        <button class="req-action-btn" data-req="water">
+          <span class="req-icon">💧</span>
+          <span class="req-title">Request Water</span>
+          <span class="req-desc">Ask for cold drinking water</span>
+        </button>
+        <button class="req-action-btn" data-req="discomfort">
+          <span class="req-icon">⚡</span>
+          <span class="req-title">Pain Alert</span>
+          <span class="req-desc">Report spikes in pain or contractions</span>
+        </button>
+        <button class="req-action-btn" data-req="wait">
+          <span class="req-icon">⏱️</span>
+          <span class="req-title">Status Check</span>
+          <span class="req-desc">Request an estimate on next stage</span>
+        </button>
+        <button class="req-action-btn" data-req="blanket">
+          <span class="req-icon">🧶</span>
+          <span class="req-title">Request Blanket</span>
+          <span class="req-desc">Ask for a warm sanitised blanket</span>
+        </button>
+      </div>
+
+      <div class="chat-separator">
+        <span>Direct Chat with Reception</span>
+      </div>
+
+      <!-- Simulated Chat Panel -->
+      <div class="chat-panel">
+        <div class="chat-log" id="chatLog">
+          <div class="message system-msg">
+            <span class="msg-time">16:48</span>
+            <p>Welcome to Bloom Triage. Please type below or tap a quick request button to send a priority update to Sarah at reception.</p>
+          </div>
+        </div>
+        <div class="chat-input-area">
+          <input type="text" id="chatInput" placeholder="Write your message here..." aria-label="Send text to desk">
+          <button id="sendChatBtn" aria-label="Submit message">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m22 2-7 20-4-9-9-4Z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Direct Dial button -->
+      <a href="tel:55525666" class="direct-call-link">
+        <svg viewBox="0 0 24 24" width="16" height="16" class="icon"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span>Call Triage Front Desk (555-0199)</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div class="toast" id="appToast">
+    <div class="toast-indicator"></div>
+    <span id="toastMessage">Request sent successfully!</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
