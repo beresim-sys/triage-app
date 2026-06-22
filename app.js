@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
       showToast(`הסימולטור הועבר לתחנה ${stepIndex + 1}`);
       
       const stations = [
-        "קבלת מיילדת התחילה.",
+        "הכנסי ישירות למיון ופני אל המיילדת.",
         "חיבור למוניטור עוברי (CTG) בוצע.",
         "רופא/ה החל/ה בבדיקת אולטרסאונד.",
         "המלצות שחרור או אשפוז הופקו על ידי הרופא/ה."
@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     updateTimelineUI();
     showToast("המעקב אופס חזרה לתחנה 1");
-    addChatMessage('system', "מעקב המיון אופס חזרה לקבלת מיילדת.");
+    addChatMessage('system', "מעקב המיון אופס חזרה להכנסי ישירות למיון ופני אל המיילדת.");
   });
 
   // --- TIMELINE CONTROLS ---
