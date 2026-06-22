@@ -260,6 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const header = item.querySelector('.timeline-card');
     header.addEventListener('click', (e) => {
       if (e.target.closest('.checklist-item')) return;
+      if (e.target.closest('.next-step-btn') || e.target.closest('.finish-journey-btn')) return;
       
       const stepIndex = parseInt(item.getAttribute('data-index'), 10);
       const isExpanded = state.expandedSteps.includes(stepIndex);
@@ -488,9 +489,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- JOURNEY NAVIGATION BUTTONS ---
-  document.addEventListener('click', (e) => {
-    if (e.target && e.target.classList.contains('next-step-btn')) {
-      const nextIndex = parseInt(e.target.getAttribute('data-next'), 10);
+  const nextBtns = document.querySelectorAll('.next-step-btn');
+  nextBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const nextIndex = parseInt(btn.getAttribute('data-next'), 10);
       const stepBtn = document.querySelector(`.sim-step-btn[data-step="${nextIndex}"]`);
       if (stepBtn) {
         stepBtn.click();
@@ -507,13 +510,17 @@ document.addEventListener('DOMContentLoaded', () => {
           nextCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
       }, 300);
-    }
-    
-    if (e.target && e.target.classList.contains('finish-journey-btn')) {
+    });
+  });
+
+  const finishBtn = document.querySelector('.finish-journey-btn');
+  if (finishBtn) {
+    finishBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
       showToast("כל הכבוד! השלמת את תהליך המיון בהצלחה.");
       addChatMessage('system', "תהליך המיון הושלם בהצלחה. בריאות שלמה וידיים מלאות!");
-    }
-  });
+    });
+  }
 
 });
 
