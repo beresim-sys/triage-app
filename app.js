@@ -119,30 +119,42 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.simPanelWrapper.classList.toggle('open');
   });
 
+  // Centralised Step Transition Function
+  function transitionToStep(stepIndex) {
+    if (stepIndex < 0 || stepIndex > 3) return;
+    
+    // Update state
+    state.currentStep = stepIndex;
+    if (!state.expandedSteps.includes(stepIndex)) {
+      state.expandedSteps.push(stepIndex);
+    }
+    
+    updateTimelineUI();
+    showToast(`המעקב הועבר לתחנה ${stepIndex + 1}`);
+    
+    // Update active class on simulator buttons
+    elements.simStepBtns.forEach(b => {
+      const btnStep = parseInt(b.getAttribute('data-step'), 10);
+      if (btnStep === stepIndex) {
+        b.classList.add('active');
+      } else {
+        b.classList.remove('active');
+      }
+    });
+
+    const stations = [
+      "הכנסי ישירות למיון ופני אל המיילדת.",
+      "חיבור למוניטור עוברי (CTG) בוצע.",
+      "רופא/ה החל/ה בבדיקת אולטרסאונד.",
+      "המלצות שחרור או אשפוז הופקו על ידי הרופא/ה."
+    ];
+    addChatMessage('system', stations[stepIndex]);
+  }
+
   elements.simStepBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const stepIndex = parseInt(btn.getAttribute('data-step'), 10);
-      
-      // Update active button
-      elements.simStepBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      
-      // Update state & refresh tracker
-      state.currentStep = stepIndex;
-      if (!state.expandedSteps.includes(stepIndex)) {
-        state.expandedSteps.push(stepIndex);
-      }
-      
-      updateTimelineUI();
-      showToast(`הסימולטור הועבר לתחנה ${stepIndex + 1}`);
-      
-      const stations = [
-        "הכנסי ישירות למיון ופני אל המיילדת.",
-        "חיבור למוניטור עוברי (CTG) בוצע.",
-        "רופא/ה החל/ה בבדיקת אולטרסאונד.",
-        "המלצות שחרור או אשפוז הופקו על ידי הרופא/ה."
-      ];
-      addChatMessage('system', stations[stepIndex]);
+      transitionToStep(stepIndex);
     });
   });
 
@@ -494,16 +506,8 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
       const nextIndex = parseInt(btn.getAttribute('data-next'), 10);
-      const stepBtn = document.querySelector(`.sim-step-btn[data-step="${nextIndex}"]`);
-      if (stepBtn) {
-        stepBtn.click();
-      } else {
-        state.currentStep = nextIndex;
-        if (!state.expandedSteps.includes(nextIndex)) {
-          state.expandedSteps.push(nextIndex);
-        }
-        updateTimelineUI();
-      }
+      transitionToStep(nextIndex);
+      
       setTimeout(() => {
         const nextCard = document.getElementById(`station-${nextIndex}`);
         if (nextCard) {
