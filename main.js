@@ -527,8 +527,8 @@ const initApp = () => {
 
   // --- JOURNEY NAVIGATION BUTTONS (EXPORTS) ---
   window.finishJourney = () => {
-    showToast("כל הכבוד! השלמת את תהליך המיון בהצלחה.");
-    addChatMessage('system', "תהליך המיון הושלם בהצלחה. בריאות שלמה וידיים מלאות!");
+    showToast("בית החולים לנשים בילינסון מאחל לך לידה קלה");
+    addChatMessage('system', "בית החולים לנשים בילינסון מאחל לך לידה קלה");
   };
 
   window.toggleToNextStep = (currentIdx) => {
