@@ -267,6 +267,19 @@
             <div class="timeline-content">
               <p class="station-desc">לאחר הערכת הרופא/ה, נמליץ על המשך הטיפול המתאים ביותר עבורך: המשך מעקב והשגחה במיון, מעבר לחדר לידה, אשפוז במחלקת היריון בסיכון או שחרור בטוח לביתך.</p>
               
+              <div class="pathway-selection-area">
+                <h4>אפשרויות והמשך מסלול (לחצי לקבלת הסבר):</h4>
+                <div class="pathway-buttons-grid">
+                  <button class="pathway-btn" onclick="if(window.showPathwayExplanation) { window.showPathwayExplanation('observe', this); } event.stopPropagation();">המשך מעקב והשגחה במיון</button>
+                  <button class="pathway-btn" onclick="if(window.showPathwayExplanation) { window.showPathwayExplanation('delivery', this); } event.stopPropagation();">מעבר לחדר לידה</button>
+                  <button class="pathway-btn" onclick="if(window.showPathwayExplanation) { window.showPathwayExplanation('highrisk', this); } event.stopPropagation();">אשפוז במחלקת היריון בסיכון</button>
+                  <button class="pathway-btn" onclick="if(window.showPathwayExplanation) { window.showPathwayExplanation('discharge', this); } event.stopPropagation();">שחרור בטוח לביתך</button>
+                </div>
+                
+                <div class="pathway-explanation-box" id="pathwayExplanationBox">
+                  <div class="pathway-explanation-content" id="pathwayExplanationContent"></div>
+                </div>
+              </div>
 
               <button class="finish-journey-btn" onclick="if(window.finishJourney) { window.finishJourney(); } else { alert('שגיאה: קובץ main.js לא נטען עדיין בדפדפן'); } event.stopPropagation();">השלמתי את התהליך</button>
             </div>

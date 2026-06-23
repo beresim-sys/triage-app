@@ -535,6 +535,34 @@ const initApp = () => {
     transitionToStep(currentIdx + 1);
   };
 
+  // --- PATHWAY EXPLANATION FOR STATION 4 ---
+  const pathwayExplanations = {
+    observe: "<p><strong>המשך מעקב והשגחה במיון:</strong> במצב זה תתבקשי להישאר במיון יולדות להמשך ניטור קצר והשגחה של המיילדות כדי לוודא שהכל תקין לפני קבלת החלטה סופית.</p>",
+    delivery: "<p><strong>מעבר לחדר לידה:</strong> אם התפתחה לידה פעילה, תועברי לחדר לידה אישי בליווי צמוד של מיילדת שתוביל את תהליך הלידה שלך ותתמוך בך לאורך כל הדרך.</p>",
+    highrisk: "<p><strong>אשפוז במחלקת היריון בסיכון:</strong> במידה ונדרש המשך בירור רפואי מעמיק, השגחה ממושכת או טיפול ייעודי, תתקבלי לאשפוז במחלקת היריון בסיכון גבוה לשמירה על בריאותך ובריאות העובר.</p>",
+    discharge: "<p><strong>שחרור בטוח לביתך:</strong> אם הכל תקין ואין עדות להתפתחות לידה פעילה או סיבוך, תשוחררי לביתך עם מכתב שחרור והנחיות ברורות להמשך מעקב ופנייה חוזרת במידת הצורך.</p>"
+  };
+
+  window.showPathwayExplanation = (type, btnElement) => {
+    const box = document.getElementById('pathwayExplanationBox');
+    const content = document.getElementById('pathwayExplanationContent');
+    if (!box || !content) return;
+
+    // Toggle active class on buttons
+    const buttons = document.querySelectorAll('.pathway-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    if (btnElement) btnElement.classList.add('active');
+
+    // Fill content and show box
+    content.innerHTML = pathwayExplanations[type] || '';
+    box.style.display = 'block';
+
+    // Smooth scroll explanation box into view
+    setTimeout(() => {
+      box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
+  };
+
 };
 
 // Timing-safe window load trigger
