@@ -533,6 +533,10 @@ const initApp = () => {
     addChatMessage('system', "תהליך המיון הושלם בהצלחה. בריאות שלמה וידיים מלאות!");
   };
 
+  window.toggleToNextStep = (currentIdx) => {
+    transitionToStep(currentIdx + 1);
+  };
+
 };
 
 // Timing-safe window load trigger
